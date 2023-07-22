@@ -1,0 +1,16 @@
+package com.example.springboot_task.dto.response;
+
+
+import lombok.*;
+
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDTO{
+    private long id;
+    private String name;
+    private String surname;
+    private int age;
+
+}
