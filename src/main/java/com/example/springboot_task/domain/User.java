@@ -4,21 +4,22 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,
-            generator = "native"
+            generator = "native_user"
     )
     @GenericGenerator(
-            name = "native",
+            name = "native_user",
             strategy = "native"
     )
     private long id;
@@ -31,27 +32,20 @@ public class User {
     @Column(nullable = false)
     private String phone;
     @Column(nullable = false)
-    private Date createdAt;
+    private Date createdAt = new Date();
+    @ManyToOne
+    @JoinColumn(name = "schoolId", nullable = false)
+    private School school;
 
-    public User() {
-        createdAt = new Date(Calendar.getInstance().getTime().getTime());
-    }
 
-    public User(Long id, String name, String surname, int age, String phone) {
-        this.id = id;
+    public User(String name, String surname, int age, String phone, School school) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.phone = phone;
-        createdAt = new Date(Calendar.getInstance().getTime().getTime());
+        this.school = school;
     }
 
-    public User(String name, String surname, int age, String phone) {
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.phone = phone;
-        createdAt = new Date(Calendar.getInstance().getTime().getTime());
-    }
+
 }
 

@@ -28,6 +28,9 @@ dependencies {
 
 	testCompileOnly 'org.projectlombok:lombok:1.18.28'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.28'
+
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
+	//http://localhost:8080/swagger-ui/index.html?configUrl=/api-docs/swagger-config#
 }
 
 tasks.named('test') {
