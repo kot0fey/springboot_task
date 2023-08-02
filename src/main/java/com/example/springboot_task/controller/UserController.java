@@ -29,27 +29,27 @@ public class UserController {
 
     @GetMapping("{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
     @GetMapping("name/{name}")
     public ResponseEntity<List<UserDTO>> getUserByName(@PathVariable("name") String name) {
-        return new ResponseEntity<>(userService.getUserByName(name), HttpStatus.FOUND);
+        return new ResponseEntity<>(userService.getUserByName(name), HttpStatus.OK);
     }
 
     @GetMapping("surname/{surname}")
     public ResponseEntity<List<UserDTO>> getUserBySurname(@PathVariable("surname") String surname) {
-        return new ResponseEntity<>(userService.getUserBySurname(surname), HttpStatus.FOUND);
+        return new ResponseEntity<>(userService.getUserBySurname(surname), HttpStatus.OK);
     }
 
     @GetMapping("schoolId/{schoolId}")
     public ResponseEntity<List<UserDTO>> getUserBySchoolId(@PathVariable("schoolId") Long schoolId) {
-        return new ResponseEntity<>(userService.getUserBySchoolId(schoolId), HttpStatus.FOUND);
+        return new ResponseEntity<>(userService.getUserBySchoolId(schoolId), HttpStatus.OK);
     }
 
     @GetMapping("cityId/{cityId}")
     public ResponseEntity<List<UserDTO>> getUserByCityId(@PathVariable("cityId") Long cityId) {
-        return new ResponseEntity<>(userService.getUserByCityId(cityId), HttpStatus.FOUND);
+        return new ResponseEntity<>(userService.getUserByCityId(cityId), HttpStatus.OK);
     }
 
     @GetMapping("filter")

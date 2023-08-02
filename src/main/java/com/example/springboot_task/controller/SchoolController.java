@@ -23,7 +23,7 @@ public class SchoolController {
 
     @GetMapping("{id}")
     public ResponseEntity<SchoolDTO> getSchoolById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(schoolService.getSchoolById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(schoolService.getSchoolById(id), HttpStatus.OK);
     }
 
     @GetMapping("all")
