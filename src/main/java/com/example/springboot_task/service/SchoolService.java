@@ -5,6 +5,7 @@ import com.example.springboot_task.domain.School;
 import com.example.springboot_task.domain.User;
 import com.example.springboot_task.dto.request.SchoolUpdateDTO;
 import com.example.springboot_task.dto.response.SchoolDTO;
+import com.example.springboot_task.exceptions.ApiBadRequestException;
 import com.example.springboot_task.mapping.SchoolMapper;
 import com.example.springboot_task.repository.CityRepository;
 import com.example.springboot_task.repository.SchoolRepository;
@@ -36,19 +37,28 @@ public class SchoolService {
                 .collect(Collectors.toList());
     }
 
-    public SchoolDTO getSchoolById(long id) {
-        School school = schoolRepository.findById(id).orElse(null);
-        return SchoolMapper.mapToSchoolDTO(school);
+    public SchoolDTO getSchoolById(long id) throws ApiBadRequestException {
+        try {
+            School school = schoolRepository.findById(id).orElse(null);
+            return SchoolMapper.mapToSchoolDTO(school);
+        }catch (Exception e){
+            throw new ApiBadRequestException("No schools with " + id + " id found");
+        }
     }
 
-    public SchoolDTO deleteSchoolById(long id) {
+    public SchoolDTO deleteSchoolById(long id) throws ApiBadRequestException {
+        try {
         School school = schoolRepository.findById(id).orElse(null);
         schoolRepository.deleteById(id);
         return SchoolMapper.mapToSchoolDTO(school);
+        }catch (Exception e){
+            throw new ApiBadRequestException("No schools with " + id + " id found");
+        }
     }
 
     @Transactional
-    public SchoolDTO updateSchool(SchoolUpdateDTO schoolUpdateDTO) {
+    public SchoolDTO updateSchool(SchoolUpdateDTO schoolUpdateDTO) throws ApiBadRequestException {
+        try {
         Long schoolId = schoolUpdateDTO.getId();
         School school = schoolRepository.findById(schoolId).get();
 
@@ -65,6 +75,9 @@ public class SchoolService {
 
         school = schoolRepository.save(school);
         return SchoolMapper.mapToSchoolDTO(school);
+        }catch (Exception e){
+            throw new ApiBadRequestException("No schools with " + schoolUpdateDTO.getId() + " id found");
+        }
     }
 
 }

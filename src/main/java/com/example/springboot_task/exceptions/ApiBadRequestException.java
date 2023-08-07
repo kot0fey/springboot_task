@@ -1,17 +1,21 @@
 package com.example.springboot_task.exceptions;
 
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class BadRequestException extends RuntimeException {
-    public BadRequestException(String message) {
+public class ApiBadRequestException extends RuntimeException {
+    public ApiBadRequestException(String message) {
         super(message);
     }
+
+    public ApiBadRequestException(String message, Throwable cause){
+        super(message, cause);
+    }
+
     //controller advise in base package
-    /*
-    @ExceptionHandler({ ConstraintViolationException.class })
+/*
+    @ExceptionHandler({ BadRequestException.class })
 public ResponseEntity<Object> handleConstraintViolation(
   ConstraintViolationException ex, WebRequest request) {
     List<String> errors = new ArrayList<String>();

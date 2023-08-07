@@ -3,6 +3,7 @@ package com.example.springboot_task.controller;
 import com.example.springboot_task.dto.request.UserUpdateDTO;
 import com.example.springboot_task.dto.response.ResponseDto;
 import com.example.springboot_task.dto.response.UserDTO;
+import com.example.springboot_task.exceptions.ApiBadRequestException;
 import com.example.springboot_task.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
