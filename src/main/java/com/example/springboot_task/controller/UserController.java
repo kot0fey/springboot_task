@@ -54,11 +54,14 @@ public class UserController {
     }
 
     @GetMapping("filter")
-    public ResponseEntity<ResponseDto<UserDTO>> filter(@RequestParam(value = "cityId", required = false) Long cityId,
-                                                       @RequestParam(value = "schoolId", required = false) Long schoolId,
+    public ResponseEntity<ResponseDto<UserDTO>> filter(@RequestParam(value = "name", required = false) String name,
                                                        @RequestParam(value = "surname", required = false) String surname,
-                                                       @RequestParam(value = "name", required = false) String name) {
-        throw new UnsupportedOperationException();
+                                                       @RequestParam(value = "schoolId", required = false) Long schoolId,
+                                                       @RequestParam(value = "cityId", required = false) Long cityId,
+                                                       @RequestParam(value = "offset", defaultValue = "0") Integer offset,
+                                                       @RequestParam(value = "limit", defaultValue = "3") Integer limit
+                                                       ) {
+        return new ResponseEntity<>(userService.getUsersByFilter(name,surname, schoolId, cityId, limit, offset), HttpStatus.OK);
     }
 
     @GetMapping("all")

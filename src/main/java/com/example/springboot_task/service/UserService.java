@@ -140,4 +140,14 @@ public class UserService {
             throw new ApiBadRequestException("No users with " + userUpdateDTO.getId() + " id found");
         }
     }
+
+    public ResponseDto getUsersByFilter(String name, String surname, Long schoolId, Long cityId, Integer limit, Integer offset) {
+
+        try {
+        List fullList = userRepository.findByFilter(name, surname, schoolId, cityId);
+        return new ResponseDto(fullList, limit, offset);
+        }   catch (Exception e){
+            throw new ApiBadRequestException("Bad filter parameter");
+        }
+    }
 }
