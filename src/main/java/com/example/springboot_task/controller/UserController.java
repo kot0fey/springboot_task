@@ -62,7 +62,7 @@ public class UserController {
     }
 
     @GetMapping("all")
-    public ResponseEntity<Page<UserDTO>> getAllUsers(
+    public ResponseEntity<ResponseDto<UserDTO>> getAllUsers(
             @RequestParam(value = "offset", defaultValue = "0") Integer offset,
             @RequestParam(value = "limit", defaultValue = "3") Integer limit
     ) {

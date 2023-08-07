@@ -3,6 +3,7 @@ package com.example.springboot_task.service;
 import com.example.springboot_task.domain.School;
 import com.example.springboot_task.domain.User;
 import com.example.springboot_task.dto.request.UserUpdateDTO;
+import com.example.springboot_task.dto.response.ResponseDto;
 import com.example.springboot_task.dto.response.UserDTO;
 import com.example.springboot_task.mapping.UserMapper;
 import com.example.springboot_task.repository.SchoolRepository;
@@ -32,10 +33,11 @@ public class UserService {
     }
 
     // add Limit and Offset - Pagination
-    public Page<UserDTO> getAllUsers(Integer offset, Integer limit) {
-        return userRepository
-                .findAll(PageRequest.of(offset, limit))
-                .map(UserMapper::mapToUserDTO);
+    public ResponseDto<UserDTO> getAllUsers(Integer offset, Integer limit) {
+
+        List fullList = userRepository.findAll().stream().map(UserMapper::mapToUserDTO).collect(Collectors.toList());
+        ResponseDto responseDto = new ResponseDto<>(fullList, limit, offset);
+        return responseDto;
 
     }
 
