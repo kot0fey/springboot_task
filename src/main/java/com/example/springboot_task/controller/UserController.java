@@ -24,53 +24,65 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserUpdateDTO userDTO) {
-        return new ResponseEntity<>(userService.createUser(userDTO), HttpStatus.CREATED);
+    public UserDTO createUser(@RequestBody UserUpdateDTO userDTO) {
+        return userService.createUser(userDTO);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<UserDTO> getUserById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    public UserDTO getUserById(@PathVariable("id") Long id) {
+        return userService.getUserById(id);
     }
 
     @GetMapping("name/{name}")
-    public ResponseEntity<List<UserDTO>> getUserByName(@PathVariable("name") String name) {
-        return new ResponseEntity<>(userService.getUserByName(name), HttpStatus.OK);
+    public ResponseDto<UserDTO> getUserByName(@PathVariable("name") String name,
+                                              @RequestParam(value = "limit", defaultValue = "3") Integer limit,
+                                              @RequestParam(value = "offset", defaultValue = "0") Integer offset
+    ) {
+        return userService.getUserByName(name, limit, offset);
     }
 
     @GetMapping("surname/{surname}")
-    public ResponseEntity<List<UserDTO>> getUserBySurname(@PathVariable("surname") String surname) {
-        return new ResponseEntity<>(userService.getUserBySurname(surname), HttpStatus.OK);
+    public ResponseDto<UserDTO> getUserBySurname(@PathVariable("surname") String surname,
+                                                 @RequestParam(value = "limit", defaultValue = "3") Integer limit,
+                                                 @RequestParam(value = "offset", defaultValue = "0") Integer offset
+    ) {
+        return userService.getUserBySurname(surname, limit, offset);
     }
 
     @GetMapping("schoolId/{schoolId}")
-    public ResponseEntity<List<UserDTO>> getUserBySchoolId(@PathVariable("schoolId") Long schoolId) {
-        return new ResponseEntity<>(userService.getUserBySchoolId(schoolId), HttpStatus.OK);
+    public ResponseDto<UserDTO> getUserBySchoolId(@PathVariable("schoolId") Long schoolId,
+                                                  @RequestParam(value = "limit", defaultValue = "3") Integer limit,
+                                                  @RequestParam(value = "offset", defaultValue = "0") Integer offset
+    ) {
+        return userService.getUserBySchoolId(schoolId, limit, offset);
     }
 
     @GetMapping("cityId/{cityId}")
-    public ResponseEntity<List<UserDTO>> getUserByCityId(@PathVariable("cityId") Long cityId) {
-        return new ResponseEntity<>(userService.getUserByCityId(cityId), HttpStatus.OK);
+    public ResponseDto<UserDTO> getUserByCityId(@PathVariable("cityId") Long cityId,
+                                                @RequestParam(value = "limit", defaultValue = "3") Integer limit,
+                                                @RequestParam(value = "offset", defaultValue = "0") Integer offset
+    ) {
+        return userService.getUserByCityId(cityId, limit, offset);
     }
 
     @GetMapping("filter")
-    public ResponseEntity<ResponseDto<UserDTO>> filter(@RequestParam(value = "name", required = false) String name,
-                                                       @RequestParam(value = "surname", required = false) String surname,
-                                                       @RequestParam(value = "schoolId", required = false) Long schoolId,
-                                                       @RequestParam(value = "cityId", required = false) Long cityId,
-                                                       @RequestParam(value = "offset", defaultValue = "0") Integer offset,
-                                                       @RequestParam(value = "limit", defaultValue = "3") Integer limit
-                                                       ) {
-        return new ResponseEntity<>(userService.getUsersByFilter(name,surname, schoolId, cityId, limit, offset), HttpStatus.OK);
+    public ResponseDto<UserDTO> filter(@RequestParam(value = "name", required = false) String name,
+                                       @RequestParam(value = "surname", required = false) String surname,
+                                       @RequestParam(value = "schoolId", required = false) Long schoolId,
+                                       @RequestParam(value = "cityId", required = false) Long cityId,
+                                       @RequestParam(value = "limit", defaultValue = "3") Integer limit,
+                                       @RequestParam(value = "offset", defaultValue = "0") Integer offset
+
+    ) {
+        return userService.getUsersByFilter(name, surname, schoolId, cityId, limit, offset);
     }
 
     @GetMapping("all")
-    public ResponseEntity<ResponseDto<UserDTO>> getAllUsers(
+    public ResponseDto<UserDTO> getAllUsers(
             @RequestParam(value = "offset", defaultValue = "0") Integer offset,
             @RequestParam(value = "limit", defaultValue = "3") Integer limit
     ) {
-        return new ResponseEntity<>(userService.getAllUsers(offset, limit), HttpStatus.OK);
-        //OffsetBased...
+        return userService.getAllUsers(offset, limit);
     }
 
     @PutMapping("{id}")

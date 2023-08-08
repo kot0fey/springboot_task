@@ -32,7 +32,7 @@ public class UserService {
             School school = schoolRepository.findById(schoolId).get();
             User user = userRepository.save(UserMapper.mapToUser(userUpdateDTO, school));
             return UserMapper.mapToUserDTO(user);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new ApiBadRequestException("No school with " + userUpdateDTO.getSchoolId() + " id found.");
         }
     }
@@ -50,56 +50,64 @@ public class UserService {
         try {
             User user = userRepository.findById(id).get();
             return UserMapper.mapToUserDTO(user);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ApiBadRequestException("No user with " + id + " id found.");
         }
 
     }
 
-    public List<UserDTO> getUserByName(String name) throws ApiBadRequestException {
+    public ResponseDto<UserDTO> getUserByName(String name, Integer limit, Integer offset) throws ApiBadRequestException {
         try {
-            return userRepository
+            List fullList = userRepository
                     .findByName(name)
                     .stream()
                     .map(UserMapper::mapToUserDTO)
                     .collect(Collectors.toList());
-        } catch (Exception e){
+            ResponseDto responseDto = new ResponseDto<>(fullList, limit, offset);
+            return responseDto;
+        } catch (Exception e) {
             throw new ApiBadRequestException("No users with \"" + name + "\" name found");
         }
     }
 
-    public List<UserDTO> getUserBySurname(String surname) throws ApiBadRequestException {
+    public ResponseDto<UserDTO> getUserBySurname(String surname, Integer limit, Integer offset) throws ApiBadRequestException {
         try {
-            return userRepository
+            List fullList = userRepository
                     .findBySurname(surname)
                     .stream()
                     .map(UserMapper::mapToUserDTO)
                     .collect(Collectors.toList());
-        } catch (Exception e){
+            ResponseDto responseDto = new ResponseDto<>(fullList, limit, offset);
+            return responseDto;
+        } catch (Exception e) {
             throw new ApiBadRequestException("No users with \"" + surname + "\" surname found");
         }
     }
 
-    public List<UserDTO> getUserBySchoolId(long schoolId) throws ApiBadRequestException {
+    public ResponseDto<UserDTO> getUserBySchoolId(Long schoolId, Integer limit, Integer offset) throws ApiBadRequestException {
         try {
-            return userRepository
+            List fullList = userRepository
                     .findBySchoolId(schoolId)
                     .stream()
                     .map(UserMapper::mapToUserDTO)
                     .collect(Collectors.toList());
-        } catch (Exception e){
+            ResponseDto responseDto = new ResponseDto<>(fullList, limit, offset);
+            return responseDto;
+        } catch (Exception e) {
             throw new ApiBadRequestException("No users with " + schoolId + " school id found");
         }
     }
 
-    public List<UserDTO> getUserByCityId(long cityId) throws ApiBadRequestException {
+    public ResponseDto<UserDTO> getUserByCityId(Long cityId, Integer limit, Integer offset) throws ApiBadRequestException {
         try {
-            return userRepository
+            List fullList = userRepository
                     .findBySchool_CityId(cityId)
                     .stream()
                     .map(UserMapper::mapToUserDTO)
                     .collect(Collectors.toList());
-        }catch (Exception e){
+            ResponseDto responseDto = new ResponseDto<>(fullList, limit, offset);
+            return responseDto;
+        } catch (Exception e) {
             throw new ApiBadRequestException("No users with " + cityId + " city id found");
 
         }
@@ -110,7 +118,7 @@ public class UserService {
             User user = userRepository.findById(id).get();
             userRepository.deleteById(id);
             return UserMapper.mapToUserDTO(user);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ApiBadRequestException("No users with " + id + " id found");
         }
     }
@@ -140,7 +148,7 @@ public class UserService {
 
             user = userRepository.save(user);
             return UserMapper.mapToUserDTO(user);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new ApiBadRequestException("No users with " + userUpdateDTO.getId() + " id found");
         }
     }
@@ -148,9 +156,9 @@ public class UserService {
     public ResponseDto getUsersByFilter(String name, String surname, Long schoolId, Long cityId, Integer limit, Integer offset) {
 
         try {
-        List fullList = userRepository.findByFilter(name, surname, schoolId, cityId);
-        return new ResponseDto(fullList, limit, offset);
-        }   catch (Exception e){
+            List fullList = userRepository.findByFilter(name, surname, schoolId, cityId);
+            return new ResponseDto(fullList, limit, offset);
+        } catch (Exception e) {
             throw new ApiBadRequestException("Bad filter parameter");
         }
     }

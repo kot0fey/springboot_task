@@ -1,6 +1,7 @@
 package com.example.springboot_task.controller;
 
 import com.example.springboot_task.dto.request.SchoolUpdateDTO;
+import com.example.springboot_task.dto.response.ResponseDto;
 import com.example.springboot_task.dto.response.SchoolDTO;
 import com.example.springboot_task.service.SchoolService;
 import lombok.RequiredArgsConstructor;
@@ -17,18 +18,20 @@ public class SchoolController {
     private final SchoolService schoolService;
 
     @PostMapping
-    public ResponseEntity<SchoolDTO> createSchool(@RequestBody SchoolUpdateDTO schoolDTO) {
-        return new ResponseEntity<>(schoolService.createSchool(schoolDTO), HttpStatus.CREATED);
+    public SchoolDTO createSchool(@RequestBody SchoolUpdateDTO schoolDTO) {
+        return schoolService.createSchool(schoolDTO);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<SchoolDTO> getSchoolById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(schoolService.getSchoolById(id), HttpStatus.OK);
+    public SchoolDTO getSchoolById(@PathVariable("id") Long id) {
+        return schoolService.getSchoolById(id);
     }
 
-    @GetMapping("all")
-    public ResponseEntity<List<SchoolDTO>> getAllSchools() {
-        return new ResponseEntity<>(schoolService.getAllSchools(), HttpStatus.OK);
+    @GetMapping("all")//////////////////////////////////////////////
+    public ResponseDto<SchoolDTO> getAllSchools(@RequestParam(value = "limit", defaultValue = "3") Integer limit,
+                                                @RequestParam(value = "offset", defaultValue = "0") Integer offset
+    ) {
+        return schoolService.getAllSchools(limit, offset);
     }
 
     @PutMapping("{id}")
@@ -38,8 +41,8 @@ public class SchoolController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<SchoolDTO> deleteSchool(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(schoolService.deleteSchoolById(id), HttpStatus.OK);
+    public SchoolDTO deleteSchool(@PathVariable("id") Long id) {
+        return schoolService.deleteSchoolById(id);
     }
 
 }

@@ -4,6 +4,7 @@ import com.example.springboot_task.domain.City;
 import com.example.springboot_task.domain.School;
 import com.example.springboot_task.domain.User;
 import com.example.springboot_task.dto.request.SchoolUpdateDTO;
+import com.example.springboot_task.dto.response.ResponseDto;
 import com.example.springboot_task.dto.response.SchoolDTO;
 import com.example.springboot_task.exceptions.ApiBadRequestException;
 import com.example.springboot_task.mapping.SchoolMapper;
@@ -33,12 +34,14 @@ public class SchoolService {
         }
     }
 
-    public List<SchoolDTO> getAllSchools() {
-        return schoolRepository
+    public ResponseDto<SchoolDTO> getAllSchools(Integer limit, Integer offset) {
+        List fullList = schoolRepository
                 .findAll()
                 .stream()
                 .map(SchoolMapper::mapToSchoolDTO)
                 .collect(Collectors.toList());
+        ResponseDto responseDto = new ResponseDto(fullList, limit, offset);
+        return responseDto;
     }
 
     public SchoolDTO getSchoolById(long id) throws ApiBadRequestException {

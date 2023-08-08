@@ -4,6 +4,7 @@ import com.example.springboot_task.domain.City;
 import com.example.springboot_task.domain.School;
 import com.example.springboot_task.dto.request.CityUpdateDTO;
 import com.example.springboot_task.dto.response.CityDTO;
+import com.example.springboot_task.dto.response.ResponseDto;
 import com.example.springboot_task.exceptions.ApiBadRequestException;
 import com.example.springboot_task.mapping.CityMapper;
 import com.example.springboot_task.repository.CityRepository;
@@ -28,12 +29,14 @@ public class CityService {
         return CityMapper.mapToCityDTO(city);
     }
 
-    public List<CityDTO> getAllCities() {
-        return cityRepository
+    public ResponseDto<CityDTO> getAllCities(Integer limit, Integer offset) {
+        List fullList = cityRepository
                 .findAll()
                 .stream()
                 .map(CityMapper::mapToCityDTO)
                 .collect(Collectors.toList());
+        ResponseDto responseDto = new ResponseDto<>(fullList, limit, offset);
+        return responseDto;
     }
 
     public CityDTO getCityById(long id) throws ApiBadRequestException {
