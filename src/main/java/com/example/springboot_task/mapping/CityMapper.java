@@ -1,6 +1,7 @@
 package com.example.springboot_task.mapping;
 
 import com.example.springboot_task.domain.City;
+import com.example.springboot_task.domain.School;
 import com.example.springboot_task.dto.request.CityUpdateDTO;
 import com.example.springboot_task.dto.response.CityDTO;
 
@@ -17,11 +18,11 @@ public class CityMapper {
         );
     }
 
-    public static City mapToCity(CityUpdateDTO cityDTO) {
+    public static City mapToCity(CityUpdateDTO cityDTO, List<School> schoolList) {
         return new City(
                 cityDTO.getId(),
                 cityDTO.getName(),
-                cityDTO.getSchools()
+                schoolList
         );
     }
 

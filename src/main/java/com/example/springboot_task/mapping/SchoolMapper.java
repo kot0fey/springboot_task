@@ -1,9 +1,11 @@
 package com.example.springboot_task.mapping;
 
-import com.example.springboot_task.domain.City;
-import com.example.springboot_task.domain.School;
+import com.example.springboot_task.domain.*;
 import com.example.springboot_task.dto.request.SchoolUpdateDTO;
 import com.example.springboot_task.dto.response.SchoolDTO;
+import com.example.springboot_task.service.UserService;
+
+import java.util.List;
 
 public class SchoolMapper {
 
@@ -18,13 +20,13 @@ public class SchoolMapper {
         );
     }
 
-    public static School mapToSchool(SchoolUpdateDTO schoolDTO, City city) {
+    public static School mapToSchool(SchoolUpdateDTO schoolDTO, List<User> users, List<Teacher> teachers, List<Book> books, City city) {
         return new School(
                 schoolDTO.getId(),
                 schoolDTO.getName(),
-                schoolDTO.getUsers(),
-                schoolDTO.getTeachers(),
-                schoolDTO.getBooks(),
+                users,
+                teachers,
+                books,
                 city
         );
     }

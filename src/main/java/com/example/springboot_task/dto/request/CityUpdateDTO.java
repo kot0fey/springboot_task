@@ -10,5 +10,5 @@ import java.util.Set;
 public class CityUpdateDTO {
     private Long id;
     private String name;
-    private List<School> schools;
+    private List<Long> schoolsId;
 }
