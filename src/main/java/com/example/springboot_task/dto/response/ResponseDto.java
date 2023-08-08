@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
 public class ResponseDto<T> {
     List<T> content;
@@ -22,7 +23,7 @@ public class ResponseDto<T> {
                 lastIndex = total;
             }
             this.content = content.subList(offset, lastIndex);
-        } catch (Exception e){
+        } catch (ApiBadRequestException e){
             throw new ApiBadRequestException("Limit or Offset are incorrect");
         }
     }

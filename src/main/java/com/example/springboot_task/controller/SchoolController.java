@@ -4,6 +4,7 @@ import com.example.springboot_task.dto.request.SchoolUpdateDTO;
 import com.example.springboot_task.dto.response.ResponseDto;
 import com.example.springboot_task.dto.response.SchoolDTO;
 import com.example.springboot_task.service.SchoolService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/schools")
 @RequiredArgsConstructor
+@Tag(name = "Schools")
 public class SchoolController {
     private final SchoolService schoolService;
 
