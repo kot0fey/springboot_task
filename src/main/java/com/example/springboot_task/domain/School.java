@@ -14,7 +14,6 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class School {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,
@@ -38,6 +37,12 @@ public class School {
     @ManyToOne
     @JoinColumn(name = "cityId", nullable = false)
     private City city;
+
+    public School(Long id, String name, City city) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+    }
 
     public List<String> getUsersNames(){
         List<String> names = new ArrayList<>();

@@ -18,11 +18,10 @@ public class CityMapper {
         );
     }
 
-    public static City mapToCity(CityUpdateDTO cityDTO, List<School> schoolList) {
+    public static City mapToCity(CityUpdateDTO cityDTO) {
         return new City(
                 cityDTO.getId(),
-                cityDTO.getName(),
-                schoolList
+                cityDTO.getName()
         );
     }
 

@@ -25,9 +25,7 @@ public class CityService {
     private final SchoolRepository schoolRepository;
 
     public CityDTO createCity(CityUpdateDTO cityUpdateDTO) {
-            List schoolIdList = cityUpdateDTO.getSchoolsId();
-            List schoolList = schoolRepository.findAllById(schoolIdList);
-            City city = cityRepository.save(CityMapper.mapToCity(cityUpdateDTO, schoolList));
+            City city = cityRepository.save(CityMapper.mapToCity(cityUpdateDTO));
             return CityMapper.mapToCityDTO(city);
     }
 
@@ -70,11 +68,6 @@ public class CityService {
             String cityName = cityUpdateDTO.getName();
             if (!cityName.isEmpty()) {
                 city.setName(cityName);
-            }
-            if (cityUpdateDTO.getSchoolsId() != null) {
-                    List schoolIdList = cityUpdateDTO.getSchoolsId();
-                    List schoolList = schoolRepository.findAllById(schoolIdList);
-                    city.setSchools(schoolList);
             }
             city = cityRepository.save(city);
             return CityMapper.mapToCityDTO(city);

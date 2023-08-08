@@ -20,13 +20,10 @@ public class SchoolMapper {
         );
     }
 
-    public static School mapToSchool(SchoolUpdateDTO schoolDTO, List<User> users, List<Teacher> teachers, List<Book> books, City city) {
+    public static School mapToSchool(SchoolUpdateDTO schoolDTO, City city) {
         return new School(
                 schoolDTO.getId(),
                 schoolDTO.getName(),
-                users,
-                teachers,
-                books,
                 city
         );
     }

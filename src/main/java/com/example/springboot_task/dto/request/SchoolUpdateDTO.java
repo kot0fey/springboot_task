@@ -14,8 +14,5 @@ import java.util.Set;
 public class SchoolUpdateDTO {
     private Long id;
     private String name;
-    private List<Long> usersId;
-    private List<Long> teachersId;
-    private List<Long> booksId;
     private Long cityId;
 }

@@ -1,8 +1,6 @@
 package com.example.springboot_task.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -31,7 +29,12 @@ public class City {
 
 
     @OneToMany(mappedBy = "city")
-    private List<School> schools;
+    private List<School> schools = null;
+
+    public City(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public List<String> getSchoolNames() {
         if (schools == null){

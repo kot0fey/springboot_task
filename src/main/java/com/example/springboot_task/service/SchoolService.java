@@ -27,13 +27,7 @@ public class SchoolService {
             Long cityId = schoolUpdateDTO.getCityId();
             City city = cityRepository.findById(cityId)
                     .orElseThrow(() -> new ApiBadRequestException("No city with " + schoolUpdateDTO.getCityId() + " id found."));
-            List<Long> usersId = schoolUpdateDTO.getUsersId();
-            List<User> users = userRepository.findAllById(usersId);
-            List<Long> teachersId = schoolUpdateDTO.getTeachersId();
-            List<Teacher> teachers = teacherRepository.findAllById(teachersId);
-            List<Long> booksId = schoolUpdateDTO.getBooksId();
-            List<Book> books = bookRepository.findAllById(booksId);
-            School school = schoolRepository.save(SchoolMapper.mapToSchool(schoolUpdateDTO, users, teachers, books, city));
+            School school = schoolRepository.save(SchoolMapper.mapToSchool(schoolUpdateDTO, city));
             return SchoolMapper.mapToSchoolDTO(school);
     }
 
@@ -68,21 +62,6 @@ public class SchoolService {
 
             if (schoolUpdateDTO.getName() != null) {
                 school.setName(schoolUpdateDTO.getName());
-            }
-            if (schoolUpdateDTO.getUsersId() != null) {
-                    List<Long> usersId = schoolUpdateDTO.getUsersId();
-                    List<User> users = userRepository.findAllById(usersId);
-                    school.setUsers(users);
-            }
-            if (schoolUpdateDTO.getTeachersId()!=null){
-                    List<Long> teachersId = schoolUpdateDTO.getTeachersId();
-                    List<Teacher> teachers = teacherRepository.findAllById(teachersId);
-                    school.setTeachers(teachers);
-            }
-            if (schoolUpdateDTO.getBooksId()!=null){
-                    List<Long> booksId = schoolUpdateDTO.getBooksId();
-                    List<Book> books = bookRepository.findAllById(booksId);
-                    school.setBooks(books);
             }
             if (schoolUpdateDTO.getCityId() != null) {
                     City city = cityRepository.findById(schoolUpdateDTO.getCityId())
