@@ -12,6 +12,8 @@ public class SchoolMapper {
                 school.getId(),
                 school.getName(),
                 school.getUsersNames(),
+                school.getTeachersNames(),
+                school.getBooksNames(),
                 school.getCity().getName()
         );
     }
@@ -21,6 +23,8 @@ public class SchoolMapper {
                 schoolDTO.getId(),
                 schoolDTO.getName(),
                 schoolDTO.getUsers(),
+                schoolDTO.getTeachers(),
+                schoolDTO.getBooks(),
                 city
         );
     }

@@ -27,12 +27,16 @@ public class UserService {
     private final SchoolRepository schoolRepository;
 
     public UserDTO createUser(UserUpdateDTO userUpdateDTO) {
-        School school = schoolRepository.findById(userUpdateDTO.getSchoolId()).orElse(null);
-        User user = userRepository.save(UserMapper.mapToUser(userUpdateDTO, school));
-        return UserMapper.mapToUserDTO(user);
+        try {
+            Long schoolId = userUpdateDTO.getSchoolId();
+            School school = schoolRepository.findById(schoolId).get();
+            User user = userRepository.save(UserMapper.mapToUser(userUpdateDTO, school));
+            return UserMapper.mapToUserDTO(user);
+        }catch (Exception e){
+            throw new ApiBadRequestException("No school with " + userUpdateDTO.getSchoolId() + " id found.");
+        }
     }
 
-    // add Limit and Offset - Pagination
     public ResponseDto<UserDTO> getAllUsers(Integer offset, Integer limit) {
 
         List fullList = userRepository.findAll().stream().map(UserMapper::mapToUserDTO).collect(Collectors.toList());
@@ -103,7 +107,7 @@ public class UserService {
 
     public UserDTO deleteUserById(Long id) throws ApiBadRequestException {
         try {
-            User user = userRepository.findById(id).orElse(null);
+            User user = userRepository.findById(id).get();
             userRepository.deleteById(id);
             return UserMapper.mapToUserDTO(user);
         } catch (Exception e){

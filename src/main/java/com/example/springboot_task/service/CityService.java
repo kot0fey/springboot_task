@@ -38,7 +38,7 @@ public class CityService {
 
     public CityDTO getCityById(long id) throws ApiBadRequestException {
         try {
-        City city = cityRepository.findById(id).orElse(null);
+        City city = cityRepository.findById(id).get();
         return CityMapper.mapToCityDTO(city);
         }catch (Exception e){
             throw new ApiBadRequestException("No cities with " + id + " id found");
@@ -56,7 +56,7 @@ public class CityService {
 
     public CityDTO deleteCityById(long id) throws ApiBadRequestException {
         try {
-        City city = cityRepository.findById(id).orElse(null);
+        City city = cityRepository.findById(id).get();
         cityRepository.deleteById(id);
         return CityMapper.mapToCityDTO(city);
         }catch (Exception e){
@@ -67,23 +67,15 @@ public class CityService {
     @Transactional
     public CityDTO updateCity(CityUpdateDTO cityUpdateDTO) throws ApiBadRequestException {
         try {
-        /*City city = cityRepository.save(CityMapper.mapToCity(cityUpdateDTO));
-        return CityMapper.mapToCityDTO(city);*/
-
         Long cityId = cityUpdateDTO.getId();
-        City city = cityRepository
-                .findById(cityId).get();
-                //.orElseThrow(BadRequestException("kjkljl"));
-
+        City city = cityRepository.findById(cityId).get();
         String cityName = cityUpdateDTO.getName();
         if(!cityName.isEmpty()){
             city.setName(cityName);
         }
-
         if(cityUpdateDTO.getSchools()!=null){
            city.setSchools(cityUpdateDTO.getSchools());
         }
-
         city = cityRepository.save(city);
         return CityMapper.mapToCityDTO(city);
         }catch (Exception e){

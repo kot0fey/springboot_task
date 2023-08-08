@@ -23,10 +23,14 @@ public class SchoolService {
     private final CityRepository cityRepository;
 
     public SchoolDTO createSchool(SchoolUpdateDTO schoolUpdateDTO) {
-        Long cityId = schoolUpdateDTO.getCityId();
-        City city = cityRepository.findById(cityId).get();
-        School school = schoolRepository.save(SchoolMapper.mapToSchool(schoolUpdateDTO, city));
-        return SchoolMapper.mapToSchoolDTO(school);
+        try {
+            Long cityId = schoolUpdateDTO.getCityId();
+            City city = cityRepository.findById(cityId).get();
+            School school = schoolRepository.save(SchoolMapper.mapToSchool(schoolUpdateDTO, city));
+            return SchoolMapper.mapToSchoolDTO(school);
+        }catch (Exception e){
+            throw new ApiBadRequestException("No city with " + schoolUpdateDTO.getCityId() + " id found.");
+        }
     }
 
     public List<SchoolDTO> getAllSchools() {
@@ -39,16 +43,16 @@ public class SchoolService {
 
     public SchoolDTO getSchoolById(long id) throws ApiBadRequestException {
         try {
-            School school = schoolRepository.findById(id).orElse(null);
+            School school = schoolRepository.findById(id).get();
             return SchoolMapper.mapToSchoolDTO(school);
         }catch (Exception e){
             throw new ApiBadRequestException("No schools with " + id + " id found");
         }
     }
 
-    public SchoolDTO deleteSchoolById(long id) throws ApiBadRequestException {
+    public SchoolDTO deleteSchoolById(Long id) throws ApiBadRequestException {
         try {
-        School school = schoolRepository.findById(id).orElse(null);
+        School school = schoolRepository.findById(id).get();
         schoolRepository.deleteById(id);
         return SchoolMapper.mapToSchoolDTO(school);
         }catch (Exception e){
@@ -69,8 +73,12 @@ public class SchoolService {
             school.setUsers(schoolUpdateDTO.getUsers());
         }
         if(schoolUpdateDTO.getCityId() != null) {
-            City city = cityRepository.findById(schoolUpdateDTO.getCityId()).get();
-            school.setCity(city);
+            try {
+                City city = cityRepository.findById(schoolUpdateDTO.getCityId()).get();
+                school.setCity(city);
+            }catch (Exception e){
+                throw new ApiBadRequestException("No city with " + schoolUpdateDTO.getCityId() + " id found.");
+            }
         }
 
         school = schoolRepository.save(school);

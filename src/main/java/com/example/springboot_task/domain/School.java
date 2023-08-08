@@ -14,6 +14,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class School {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,
@@ -23,11 +24,17 @@ public class School {
             name = "native_school",
             strategy = "native"
     )
-    private long id;
+    private Long id;
     @Column(nullable = false, unique = true)
     private String name;
     @OneToMany(mappedBy = "school")
     private List<User> users;
+    @OneToMany
+    @JoinColumn(name = "teachers", nullable = true)
+    private List<Teacher> teachers;
+    @OneToMany
+    @JoinColumn(name = "books", nullable = true)
+    private List<Book> books;
     @ManyToOne
     @JoinColumn(name = "cityId", nullable = false)
     private City city;
@@ -40,11 +47,19 @@ public class School {
         return names;
     }
 
-    public void addUser(User user){
-        users.add(user);
+    public List<String> getTeachersNames(){
+        List<String> names = new ArrayList<>();
+        for(Teacher teacher:teachers){
+            names.add(teacher.getName() + " " + teacher.getSurname());
+        }
+        return names;
     }
 
-    public void deleteUser(User user){
-        users.remove(user);
+    public List<String> getBooksNames(){
+        List<String> names = new ArrayList<>();
+        for(Book book:books){
+            names.add(book.getName() + " by " + book.getAuthor());
+        }
+        return names;
     }
 }

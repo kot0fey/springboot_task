@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -36,6 +37,9 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "schoolId", nullable = false)
     private School school;
+    @OneToMany
+    @JoinColumn(name = "books", nullable = true)
+    private List<Book> books;
 
 
     public User(String name, String surname, int age, String phone, School school) {

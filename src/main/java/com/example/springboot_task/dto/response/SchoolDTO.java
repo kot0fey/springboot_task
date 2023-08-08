@@ -15,6 +15,8 @@ public class SchoolDTO {
     private Long id;
     private String name;
     private List<String> usersNames;
+    private List<String> teachersNames;
+    private List<String> booksNames;
     private String cityName;
 
 }
