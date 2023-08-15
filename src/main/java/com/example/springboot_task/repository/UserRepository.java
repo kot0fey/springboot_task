@@ -30,17 +30,30 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Integer countBySchool_CityId(long cityId);
 
     @Query(value = """
-            SELECT * FROM "users"
-            JOIN "schools" ON users.school_id = schools.id
+            SELECT * FROM users
+            JOIN schools ON users.school_id = schools.id
             WHERE (:name IS NULL OR users.name = :name)
             AND (:surname IS NULL OR users.surname = :surname)
             AND (:schoolId IS NULL OR schools.id = :schoolId)
             AND (:cityId IS NULL OR schools.city_id = :cityId)
             """, nativeQuery = true)
-    Page<User> findByFilter(@Param("name") String name,
+    List<User> findByFilter(@Param("name") String name,
                             @Param("surname") String surname,
                             @Param("schoolId") Long schoolId,
                             @Param("cityId") Long cityId,
                             Pageable pageable);
 
+
+    @Query(value = """
+            SELECT COUNT(*)  FROM users
+            JOIN schools ON users.school_id = schools.id
+            WHERE (:name IS NULL OR users.name = :name)
+            AND (:surname IS NULL OR users.surname = :surname)
+            AND (:schoolId IS NULL OR schools.id = :schoolId)
+            AND (:cityId IS NULL OR schools.city_id = :cityId)
+            """, nativeQuery = true)
+    Long countByFilter(@Param("name") String name,
+                       @Param("surname") String surname,
+                       @Param("schoolId") Long schoolId,
+                       @Param("cityId") Long cityId);
 }

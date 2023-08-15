@@ -146,7 +146,15 @@ public class UserService {
 
 //            Page<User> fullList = userRepository.findByFilter(name, surname, schoolId, cityId);
 //            return new ResponseDto(fullList.stream().map(u -> UserMapper.mapToUserDTO(u)).toList(), limit, offset);
-
-        return null;
+        Pageable pageable = new OffsetBasedPageRequest(offset, limit);
+        List<UserDTO> userDTOList = userRepository
+                .findByFilter(name, surname, schoolId, cityId, pageable)
+                .stream()
+                .map(UserMapper::mapToUserDTO)
+                .toList();
+        long total = userRepository
+                             .countByFilter(name, surname, schoolId, cityId);
+        ResponseDto<UserDTO> responseDto = new ResponseDto<>(userDTOList, total);
+        return responseDto;
     }
 }
