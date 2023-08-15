@@ -5,16 +5,20 @@ import com.example.springboot_task.domain.School;
 import com.example.springboot_task.domain.User;
 import com.example.springboot_task.dto.request.BookUpdateDto;
 import com.example.springboot_task.dto.response.BookDto;
-import com.example.springboot_task.dto.response.ResponseDto;
+import com.example.springboot_task.dto.response.base.OffsetBasedPageRequest;
+import com.example.springboot_task.dto.response.base.ResponseDto;
 import com.example.springboot_task.exceptions.ApiBadRequestException;
 import com.example.springboot_task.mapping.BookMapper;
 import com.example.springboot_task.repository.BookRepository;
 import com.example.springboot_task.repository.SchoolRepository;
 import com.example.springboot_task.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -39,9 +43,16 @@ public class BookService {
     }
 
 
-    public ResponseDto<BookDto> getAllBooks(Integer limit, Integer offset) {
-        List fullList = bookRepository.findAll();
-        ResponseDto responseDto = new ResponseDto(fullList, limit, offset);
+    public ResponseDto<BookDto> getAllBooks(int offset, int limit) {
+        Pageable pageable = new OffsetBasedPageRequest(offset, limit);
+        List<BookDto> bookDtoList = bookRepository
+                .findAll(pageable)
+                .stream()
+                .map(BookMapper::mapToBookDto)
+                .toList();
+        long total = bookRepository
+                .count();
+        ResponseDto<BookDto> responseDto = new ResponseDto<>(bookDtoList, total);
         return responseDto;
     }
 

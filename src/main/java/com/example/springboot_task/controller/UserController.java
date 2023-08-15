@@ -1,20 +1,13 @@
 package com.example.springboot_task.controller;
 
 import com.example.springboot_task.dto.request.UserUpdateDTO;
-import com.example.springboot_task.dto.response.ResponseDto;
+import com.example.springboot_task.dto.response.base.ResponseDto;
 import com.example.springboot_task.dto.response.UserDTO;
-import com.example.springboot_task.exceptions.ApiBadRequestException;
 import com.example.springboot_task.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.print.Pageable;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -35,34 +28,34 @@ public class UserController {
 
     @GetMapping("name/{name}")
     public ResponseDto<UserDTO> getUserByName(@PathVariable("name") String name,
-                                              @RequestParam(value = "limit", defaultValue = "3") Integer limit,
-                                              @RequestParam(value = "offset", defaultValue = "0") Integer offset
+                                              @RequestParam(value = "offset", defaultValue = "0") Integer offset,
+                                              @RequestParam(value = "limit", defaultValue = "3") Integer limit
     ) {
-        return userService.getUserByName(name, limit, offset);
+        return userService.getUserByName(name, offset, limit);
     }
 
     @GetMapping("surname/{surname}")
     public ResponseDto<UserDTO> getUserBySurname(@PathVariable("surname") String surname,
-                                                 @RequestParam(value = "limit", defaultValue = "3") Integer limit,
-                                                 @RequestParam(value = "offset", defaultValue = "0") Integer offset
+                                                 @RequestParam(value = "offset", defaultValue = "0") Integer offset,
+                                                 @RequestParam(value = "limit", defaultValue = "3") Integer limit
     ) {
-        return userService.getUserBySurname(surname, limit, offset);
+        return userService.getUserBySurname(surname, offset, limit);
     }
 
     @GetMapping("schoolId/{schoolId}")
     public ResponseDto<UserDTO> getUserBySchoolId(@PathVariable("schoolId") Long schoolId,
-                                                  @RequestParam(value = "limit", defaultValue = "3") Integer limit,
-                                                  @RequestParam(value = "offset", defaultValue = "0") Integer offset
+                                                  @RequestParam(value = "offset", defaultValue = "0") Integer offset,
+                                                  @RequestParam(value = "limit", defaultValue = "3") Integer limit
     ) {
-        return userService.getUserBySchoolId(schoolId, limit, offset);
+        return userService.getUserBySchoolId(schoolId, offset, limit);
     }
 
     @GetMapping("cityId/{cityId}")
     public ResponseDto<UserDTO> getUserByCityId(@PathVariable("cityId") Long cityId,
-                                                @RequestParam(value = "limit", defaultValue = "3") Integer limit,
-                                                @RequestParam(value = "offset", defaultValue = "0") Integer offset
+                                                @RequestParam(value = "offset", defaultValue = "0") Integer offset,
+                                                @RequestParam(value = "limit", defaultValue = "3") Integer limit
     ) {
-        return userService.getUserByCityId(cityId, limit, offset);
+        return userService.getUserByCityId(cityId, offset, limit);
     }
 
     @GetMapping("filter")
@@ -70,11 +63,12 @@ public class UserController {
                                        @RequestParam(value = "surname", required = false) String surname,
                                        @RequestParam(value = "schoolId", required = false) Long schoolId,
                                        @RequestParam(value = "cityId", required = false) Long cityId,
-                                       @RequestParam(value = "limit", defaultValue = "3") Integer limit,
-                                       @RequestParam(value = "offset", defaultValue = "0") Integer offset
+                                       @RequestParam(value = "offset", defaultValue = "0") Integer offset,
+                                       @RequestParam(value = "limit", defaultValue = "3") Integer limit
+
 
     ) {
-        return userService.getUsersByFilter(name, surname, schoolId, cityId, limit, offset);
+        return userService.getUsersByFilter(name, surname, schoolId, cityId, offset, limit);
     }
 
     @GetMapping("all")

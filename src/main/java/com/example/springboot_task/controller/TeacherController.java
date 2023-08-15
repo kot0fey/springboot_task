@@ -1,8 +1,7 @@
 package com.example.springboot_task.controller;
 
 import com.example.springboot_task.dto.request.TeacherUpdateDto;
-import com.example.springboot_task.dto.response.BookDto;
-import com.example.springboot_task.dto.response.ResponseDto;
+import com.example.springboot_task.dto.response.base.ResponseDto;
 import com.example.springboot_task.dto.response.TeacherDto;
 import com.example.springboot_task.service.TeacherService;
 import lombok.RequiredArgsConstructor;
@@ -25,17 +24,19 @@ public class TeacherController {
     }
 
     @GetMapping("all")
-    public ResponseDto<TeacherDto> getAllBooks(@RequestParam(value = "offset", defaultValue = "0") Integer offset,
-                                               @RequestParam(value = "limit", defaultValue = "3") Integer limit) {
-        return teacherService.getAllTeachers(limit, offset);
+    public ResponseDto<TeacherDto> getAllBooks(@RequestParam(value = "limit", defaultValue = "3") Integer limit,
+                                               @RequestParam(value = "offset", defaultValue = "0") Integer offset
+    ) {
+        return teacherService.getAllTeachers(offset, limit);
     }
 
     @PutMapping
-    public void updateTeacher(@RequestBody TeacherUpdateDto teacherUpdateDto){
+    public void updateTeacher(@RequestBody TeacherUpdateDto teacherUpdateDto) {
         teacherService.updateTeacher(teacherUpdateDto);
     }
+
     @DeleteMapping("{id}")
-    public void deleteTeacher(@PathVariable("id")Long id){
+    public void deleteTeacher(@PathVariable("id") Long id) {
         teacherService.deleteTeacher(id);
     }
 }

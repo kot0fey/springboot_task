@@ -1,12 +1,13 @@
 package com.example.springboot_task.controller;
 
+import com.example.springboot_task.domain.City;
 import com.example.springboot_task.dto.request.CityUpdateDTO;
 import com.example.springboot_task.dto.response.CityDTO;
-import com.example.springboot_task.dto.response.ResponseDto;
+import com.example.springboot_task.dto.response.base.ResponseDto;
 import com.example.springboot_task.service.CityService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,10 +30,10 @@ public class CityController {
     }
 
     @GetMapping("all")
-    public ResponseDto<CityDTO> getAllCities(@RequestParam(value = "limit", defaultValue = "3") Integer limit,
-                                             @RequestParam(value = "offset", defaultValue = "0") Integer offset
+    public ResponseDto<CityDTO> getAllCities(@RequestParam(value = "offset", defaultValue = "0") Integer offset,
+                                             @RequestParam(value = "limit", defaultValue = "3") Integer limit
     ) {
-        return cityService.getAllCities(limit, offset);
+        return cityService.getAllCities(offset, limit);
     }
 
     @PutMapping("{id}")
