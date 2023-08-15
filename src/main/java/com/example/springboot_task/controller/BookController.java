@@ -41,8 +41,16 @@ public class BookController {
         bookService.freeBook(id);
     }
 
+    @PutMapping("take/book{bookId}/user{userId}")
+    public void takeBook(@PathVariable("bookId") Long bookId,
+                         @PathVariable("userId") Long userId
+    ){
+        bookService.takeBook(bookId, userId);
+    }
+
     @DeleteMapping("{id}")
     public void deleteBook(@PathVariable("id") Long id) {
         bookService.deleteBook(id);
     }
+
 }

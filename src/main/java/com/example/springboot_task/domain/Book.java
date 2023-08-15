@@ -26,4 +26,13 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "userId", nullable = true)
     private User user;
+
+
+    public void takeBook(User user){
+        this.user = user;
+    }
+
+    public void freeBook(){
+        user = null;
+    }
 }

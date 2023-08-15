@@ -39,6 +39,7 @@ public class User {
     private School school;
     @OneToMany
     @JoinColumn(name = "books", nullable = true)
+    @Setter(AccessLevel.NONE)
     private List<Book> books;
 
 
@@ -49,7 +50,5 @@ public class User {
         this.phone = phone;
         this.school = school;
     }
-
-
 }
 

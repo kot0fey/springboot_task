@@ -29,6 +29,7 @@ public class City {
 
 
     @OneToMany(mappedBy = "city")
+    @Setter(AccessLevel.NONE)
     private List<School> schools = null;
 
     public City(long id, String name) {

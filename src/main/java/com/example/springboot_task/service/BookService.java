@@ -88,6 +88,14 @@ public class BookService {
     }
     //give book to user
 
+    public void takeBook(Long bookId, Long userId){
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new ApiBadRequestException("No book with " + bookId + " id found."));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ApiBadRequestException("No user with " + userId + " id found."));
+        book.takeBook(user);
+    }
+
     public void deleteBook(Long id) {
         bookRepository.findById(id)
                 .orElseThrow(() -> new ApiBadRequestException("No book with " + id + " id found."));

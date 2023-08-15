@@ -27,12 +27,15 @@ public class School {
     @Column(nullable = false, unique = true)
     private String name;
     @OneToMany(mappedBy = "school")
+    @Setter(AccessLevel.NONE)
     private List<User> users;
     @OneToMany
     @JoinColumn(name = "teachers", nullable = true)
+    @Setter(AccessLevel.NONE)
     private List<Teacher> teachers;
     @OneToMany
     @JoinColumn(name = "books", nullable = true)
+    @Setter(AccessLevel.NONE)
     private List<Book> books;
     @ManyToOne
     @JoinColumn(name = "cityId", nullable = false)
