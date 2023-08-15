@@ -70,4 +70,9 @@ public class School {
         }
         return names;
     }
+
+
+    public int getNumberOfUsers(){
+        return users.size();
+    }
 }

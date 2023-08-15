@@ -43,4 +43,11 @@ public class SchoolController {
         return schoolService.deleteSchoolById(id);
     }
 
+
+    @GetMapping("rankByUsers")
+    public ResponseDto<SchoolDTO> rankByUsers(@RequestParam(value = "offset", defaultValue = "0") Integer offset,
+                                              @RequestParam(value = "limit", defaultValue = "3") Integer limit
+    ){
+        return schoolService.rankByUsers(offset, limit);
+    }
 }
