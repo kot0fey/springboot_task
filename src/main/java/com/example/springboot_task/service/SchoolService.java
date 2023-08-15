@@ -9,26 +9,18 @@ import com.example.springboot_task.exceptions.ApiBadRequestException;
 import com.example.springboot_task.mapping.SchoolMapper;
 import com.example.springboot_task.repository.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
 public class SchoolService {
     private final SchoolRepository schoolRepository;
     private final CityRepository cityRepository;
-    private final UserRepository userRepository;
-    private final TeacherRepository teacherRepository;
-    private final BookRepository bookRepository;
+
 
     public SchoolDTO createSchool(SchoolUpdateDTO schoolUpdateDTO) {
         Long cityId = schoolUpdateDTO.getCityId();
@@ -47,8 +39,7 @@ public class SchoolService {
                 .toList();
         long total = schoolRepository
                 .count();
-        ResponseDto<SchoolDTO> responseDto = new ResponseDto<>(schoolDTOList, total);
-        return responseDto;
+        return new ResponseDto<>(schoolDTOList, total);
     }
 
     public SchoolDTO getSchoolById(long id) throws ApiBadRequestException {
@@ -85,7 +76,6 @@ public class SchoolService {
     }
 
     public ResponseDto<SchoolDTO> rankByUsers(int offset, int limit) {
-        //Sort sort = Sort.by();
         Pageable pageable = new OffsetBasedPageRequest(offset, limit);
         List<SchoolDTO> schoolDTOList = schoolRepository
                 .findAll(pageable)
@@ -96,7 +86,6 @@ public class SchoolService {
 
         long total = schoolRepository
                 .count();
-        ResponseDto<SchoolDTO> responseDto = new ResponseDto<>(schoolDTOList, total);
-        return responseDto;
+        return new ResponseDto<>(schoolDTOList, total);
     }
 }

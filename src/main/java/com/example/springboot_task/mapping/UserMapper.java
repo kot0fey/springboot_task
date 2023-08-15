@@ -4,7 +4,6 @@ import com.example.springboot_task.domain.School;
 import com.example.springboot_task.domain.User;
 import com.example.springboot_task.dto.request.UserUpdateDTO;
 import com.example.springboot_task.dto.response.UserDTO;
-import org.springframework.jdbc.CannotGetJdbcConnectionException;
 
 public class UserMapper {
 
@@ -24,6 +23,7 @@ public class UserMapper {
                 userDTO.getSurname(),
                 userDTO.getAge(),
                 userDTO.getPhone(),
+                userDTO.getAvatarUrl(),
                 school
         );
     }

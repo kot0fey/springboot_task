@@ -9,6 +9,7 @@ public class UserUpdateDTO {
     private String surname;
     private Integer age;
     private String phone;
+    private String avatarUrl;
     private Long schoolId;
 
 }
