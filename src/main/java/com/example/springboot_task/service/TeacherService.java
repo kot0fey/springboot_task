@@ -52,10 +52,9 @@ public class TeacherService {
         return responseDto;
     }
 
-    public void updateTeacher(TeacherUpdateDto teacherUpdateDto) {
-        Long teacherId = teacherUpdateDto.getId();
+    public void updateTeacher(TeacherUpdateDto teacherUpdateDto, Long teacherId) {
         Teacher teacher = teacherRepository.findById(teacherId)
-                .orElseThrow(() -> new ApiBadRequestException("No teacher with " + teacherUpdateDto.getId() + " id found."));
+                .orElseThrow(() -> new ApiBadRequestException("No teacher with " + teacherId + " id found."));
         if (teacherUpdateDto.getName() != null) {
             teacher.setName(teacherUpdateDto.getName());
         }

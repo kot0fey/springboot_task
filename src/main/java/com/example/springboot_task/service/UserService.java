@@ -116,10 +116,9 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO updateUser(UserUpdateDTO userUpdateDTO) {
-        Long userId = userUpdateDTO.getId();
+    public UserDTO updateUser(UserUpdateDTO userUpdateDTO, Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ApiBadRequestException("No users with " + userUpdateDTO.getId() + " id found"));
+                .orElseThrow(() -> new ApiBadRequestException("No users with " + userId + " id found"));
 
         if (userUpdateDTO.getName() != null) {
             user.setName(userUpdateDTO.getName());

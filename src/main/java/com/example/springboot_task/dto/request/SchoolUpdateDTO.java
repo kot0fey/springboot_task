@@ -12,7 +12,6 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 public class SchoolUpdateDTO {
-    private Long id;
     private String name;
     private Long cityId;
 }

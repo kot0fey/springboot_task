@@ -10,22 +10,21 @@ import java.util.List;
 public class SchoolMapper {
 
     public static SchoolDTO mapToSchoolDTO(School school) {
-        return new SchoolDTO(
-                school.getId(),
-                school.getName(),
-                school.getUsersNames(),
-                school.getTeachersNames(),
-                school.getBooksNames(),
-                school.getCity().getName()
-        );
+        return SchoolDTO.builder()
+                .id(school.getId())
+                .name(school.getName())
+                .usersNames(school.getUsersNames())
+                .teachersNames(school.getTeachersNames())
+                .booksNames(school.getBooksNames())
+                .cityName(school.getCity().getName())
+                .build();
     }
 
     public static School mapToSchool(SchoolUpdateDTO schoolDTO, City city) {
-        return new School(
-                schoolDTO.getId(),
-                schoolDTO.getName(),
-                city
-        );
+        return School.builder()
+                .name(schoolDTO.getName())
+                .city(city)
+                .build();
     }
 
 }

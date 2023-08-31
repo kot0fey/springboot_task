@@ -68,10 +68,9 @@ public class CityService {
     }
 
     @Transactional
-    public CityDTO updateCity(CityUpdateDTO cityUpdateDTO) {
-        Long cityId = cityUpdateDTO.getId();
+    public CityDTO updateCity(CityUpdateDTO cityUpdateDTO, Long cityId) {
         City city = cityRepository.findById(cityId)
-                .orElseThrow(() -> new ApiBadRequestException("No cities with " + cityUpdateDTO.getId() + " id found"));
+                .orElseThrow(() -> new ApiBadRequestException("No cities with " + cityId + " id found"));
         String cityName = cityUpdateDTO.getName();
         if (!cityName.isEmpty()) {
             city.setName(cityName);

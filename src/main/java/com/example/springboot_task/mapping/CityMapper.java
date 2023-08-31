@@ -11,18 +11,17 @@ import java.util.Set;
 public class CityMapper {
 
     public static CityDTO mapToCityDTO(City city) {
-        return new CityDTO(
-                city.getId(),
-                city.getName(),
-                city.getSchoolNames()
-        );
+        return CityDTO.builder()
+                .id(city.getId())
+                .name(city.getName())
+                .schoolName(city.getSchoolNames())
+                .build();
     }
 
     public static City mapToCity(CityUpdateDTO cityDTO) {
-        return new City(
-                cityDTO.getId(),
-                cityDTO.getName()
-        );
+        return City.builder()
+                .name(cityDTO.getName())
+                .build();
     }
 
 }

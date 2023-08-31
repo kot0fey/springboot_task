@@ -55,10 +55,9 @@ public class BookService {
     }
 
 
-    public void updateBook(BookUpdateDto bookUpdateDto) {
-        Long bookId = bookUpdateDto.getId();
+    public void updateBook(BookUpdateDto bookUpdateDto, Long bookId) {
         Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new ApiBadRequestException("No book with " + bookUpdateDto.getId() + " id found."));
+                .orElseThrow(() -> new ApiBadRequestException("No book with " + bookId + " id found."));
 
         if (bookUpdateDto.getName() != null) {
             book.setName(bookUpdateDto.getName());

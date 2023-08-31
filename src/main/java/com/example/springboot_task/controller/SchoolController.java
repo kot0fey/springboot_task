@@ -33,9 +33,9 @@ public class SchoolController {
     }
 
     @PutMapping("{id}")
-    public SchoolDTO updateSchool(@PathVariable("id") Long id, @RequestBody SchoolUpdateDTO schoolUpdateDTO) {
-        schoolUpdateDTO.setId(id);
-        return schoolService.updateSchool(schoolUpdateDTO);
+    public SchoolDTO updateSchool(@PathVariable("id") Long id,
+                                  @RequestBody SchoolUpdateDTO schoolUpdateDTO) {
+        return schoolService.updateSchool(schoolUpdateDTO, id);
     }
 
     @DeleteMapping("{id}")

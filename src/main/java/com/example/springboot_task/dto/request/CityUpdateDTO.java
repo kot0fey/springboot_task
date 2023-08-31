@@ -8,6 +8,5 @@ import java.util.Set;
 
 @Data
 public class CityUpdateDTO {
-    private Long id;
     private String name;
 }

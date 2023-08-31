@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,

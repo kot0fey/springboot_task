@@ -54,10 +54,9 @@ public class SchoolService {
     }
 
     @Transactional
-    public SchoolDTO updateSchool(SchoolUpdateDTO schoolUpdateDTO) throws ApiBadRequestException {
-        Long schoolId = schoolUpdateDTO.getId();
+    public SchoolDTO updateSchool(SchoolUpdateDTO schoolUpdateDTO, Long schoolId) throws ApiBadRequestException {
         School school = schoolRepository.findById(schoolId)
-                .orElseThrow(() -> new ApiBadRequestException("No schools with " + schoolUpdateDTO.getId() + " id found"));
+                .orElseThrow(() -> new ApiBadRequestException("No schools with " + schoolId + " id found"));
 
         if (schoolUpdateDTO.getName() != null) {
             school.setName(schoolUpdateDTO.getName());

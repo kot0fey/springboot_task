@@ -31,8 +31,9 @@ public class TeacherController {
     }
 
     @PutMapping
-    public void updateTeacher(@RequestBody TeacherUpdateDto teacherUpdateDto) {
-        teacherService.updateTeacher(teacherUpdateDto);
+    public void updateTeacher(@PathVariable("id") Long id,
+                              @RequestBody TeacherUpdateDto teacherUpdateDto) {
+        teacherService.updateTeacher(teacherUpdateDto, id);
     }
 
     @DeleteMapping("{id}")

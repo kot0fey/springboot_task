@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookUpdateDto {
-    private Long id;
     private String name;
     private String author;
     private Long schoolId;
