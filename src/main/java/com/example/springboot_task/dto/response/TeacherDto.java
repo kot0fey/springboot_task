@@ -14,5 +14,5 @@ public class TeacherDto {
     private String surname;
     private Integer learningExperience;
     private String subject;
-    private School school;
+    private String schoolName;
 }

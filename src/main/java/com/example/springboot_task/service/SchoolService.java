@@ -10,6 +10,7 @@ import com.example.springboot_task.mapping.SchoolMapper;
 import com.example.springboot_task.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Comparator;
@@ -32,14 +33,11 @@ public class SchoolService {
 
     public ResponseDto<SchoolDTO> getAllSchools(int offset, int limit) {
         Pageable pageable = new OffsetBasedPageRequest(offset, limit);
-        List<SchoolDTO> schoolDTOList = schoolRepository
-                .findAll(pageable)
-                .stream()
+        var schools = schoolRepository.findAll(pageable);
+        List<SchoolDTO> schoolDTOList = schools.get()
                 .map(SchoolMapper::mapToSchoolDTO)
                 .toList();
-        long total = schoolRepository
-                .count();
-        return new ResponseDto<>(schoolDTOList, total);
+        return new ResponseDto<>(schoolDTOList, schools.getTotalElements());
     }
 
     public SchoolDTO getSchoolById(long id) throws ApiBadRequestException {
@@ -75,10 +73,12 @@ public class SchoolService {
 
     }
 
+    // @Query(Select ... Order by )
     public ResponseDto<SchoolDTO> rankByUsers(int offset, int limit) {
+
         Pageable pageable = new OffsetBasedPageRequest(offset, limit);
         List<SchoolDTO> schoolDTOList = schoolRepository
-                .findAll(pageable)
+                .findRankedByUsers(pageable)
                 .stream()
                 .sorted(Comparator.comparingInt(School::getNumberOfUsers).reversed())
                 .map(SchoolMapper::mapToSchoolDTO)

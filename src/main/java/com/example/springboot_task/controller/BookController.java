@@ -6,7 +6,10 @@ import com.example.springboot_task.dto.response.base.ResponseDto;
 import com.example.springboot_task.service.BookService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/books")

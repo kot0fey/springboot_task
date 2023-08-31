@@ -3,7 +3,6 @@ package com.example.springboot_task.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -19,7 +18,7 @@ public class Book {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
-    private String Author;
+    private String author;
     @ManyToOne
     @JoinColumn(name = "schoolId", nullable = false)
     private School school;

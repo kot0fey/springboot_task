@@ -1,13 +1,11 @@
 package com.example.springboot_task.domain;
 
-import com.example.springboot_task.dto.request.SchoolUpdateDTO;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "schools")

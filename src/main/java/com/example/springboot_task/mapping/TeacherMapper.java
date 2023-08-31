@@ -25,7 +25,7 @@ public class TeacherMapper {
                 teacher.getSurname(),
                 teacher.getLearningExperience(),
                 teacher.getSubject(),
-                teacher.getSchool()
+                teacher.getSchool().getName()
         );
     }
 }

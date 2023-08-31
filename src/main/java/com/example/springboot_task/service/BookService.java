@@ -13,12 +13,10 @@ import com.example.springboot_task.repository.BookRepository;
 import com.example.springboot_task.repository.SchoolRepository;
 import com.example.springboot_task.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
