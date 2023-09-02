@@ -3,7 +3,7 @@ package com.example.springboot_task.domain;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,9 +19,10 @@ public class City {
     @GeneratedValue(strategy = GenerationType.AUTO,
             generator = "native_city"
     )
-    @GenericGenerator(
+    @SequenceGenerator(
             name = "native_city",
-            strategy = "native"
+            sequenceName = "native",
+            allocationSize = 1
     )
     private long id;
 
@@ -31,7 +32,7 @@ public class City {
 
     @OneToMany(mappedBy = "city")
     @Setter(AccessLevel.NONE)
-    private List<School> schools = null;
+    private List<School> schools;
 
     public City(long id, String name) {
         this.id = id;

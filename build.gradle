@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '2.7.12'
+	id 'org.springframework.boot' version '3.1.3'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
@@ -16,22 +16,38 @@ repositories {
 }
 
 dependencies {
+	//Base
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-validation:3.1.3'
 
+	//Swagger
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+	//http://localhost:8080/swagger-ui/index.html
+
+
+	//Testing
+	//implementation 'org.flywaydb:flyway-core:9.22.0'
+	implementation 'org.springframework.boot:spring-boot-testcontainers:3.1.3'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.testcontainers:testcontainers:1.19.0'
+	testImplementation 'org.testcontainers:junit-jupiter:1.19.0'
+	testImplementation 'org.testcontainers:postgresql:1.19.0'
+
+
+
+	//PostgreSQL
 	runtimeOnly 'org.postgresql:postgresql'
 
+	//Lombok
 	compileOnly 'org.projectlombok:lombok:1.18.28'
 	annotationProcessor 'org.projectlombok:lombok:1.18.28'
-
 	testCompileOnly 'org.projectlombok:lombok:1.18.28'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.28'
 
-	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
-	//http://localhost:8080/swagger-ui/index.html?configUrl=/api-docs/swagger-config#
+
+
 }
 
 tasks.named('test') {

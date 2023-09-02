@@ -5,6 +5,8 @@ import com.example.springboot_task.domain.User;
 import com.example.springboot_task.dto.request.UserUpdateDTO;
 import com.example.springboot_task.dto.response.UserDTO;
 
+import java.util.Date;
+
 public class UserMapper {
 
     public static UserDTO mapToUserDTO(User user) {

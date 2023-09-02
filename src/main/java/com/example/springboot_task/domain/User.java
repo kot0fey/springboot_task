@@ -1,9 +1,9 @@
 package com.example.springboot_task.domain;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -20,9 +20,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO,
             generator = "native_user"
     )
-    @GenericGenerator(
+    @SequenceGenerator(
             name = "native_user",
-            strategy = "native"
+            sequenceName = "native",
+            allocationSize = 1
     )
     private long id;
     @Column(nullable = false)
@@ -36,6 +37,7 @@ public class User {
     @Column
     private String avatarUrl;
     @Column(nullable = false)
+    @Builder.Default
     private Date createdAt = new Date();
     @ManyToOne
     @JoinColumn(name = "schoolId", nullable = false)

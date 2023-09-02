@@ -3,7 +3,9 @@ package com.example.springboot_task.domain;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +20,16 @@ public class School {
     @GeneratedValue(strategy = GenerationType.AUTO,
             generator = "native_school"
     )
-    @GenericGenerator(
+    @SequenceGenerator(
             name = "native_school",
-            strategy = "native"
+            sequenceName = "native",
+            allocationSize = 1
     )
     private Long id;
     @Column(nullable = false, unique = true)
     private String name;
-    @OneToMany(mappedBy = "school")
+    @OneToMany
+    @JoinColumn(name = "users", nullable = true)
     @Setter(AccessLevel.NONE)
     private List<User> users;
     @OneToMany
@@ -46,32 +50,41 @@ public class School {
         this.city = city;
     }
 
-    public List<String> getUsersNames(){
+    @Transactional
+    public List<String> getUsersNames() {
         List<String> names = new ArrayList<>();
-        for(User user:users){
-            names.add(user.getName() + " " + user.getSurname());
+        if (users != null) {
+            for (User user : users) {
+                names.add(user.getName() + " " + user.getSurname());
+            }
         }
         return names;
     }
 
-    public List<String> getTeachersNames(){
+    @Transactional
+    public List<String> getTeachersNames() {
         List<String> names = new ArrayList<>();
-        for(Teacher teacher:teachers){
-            names.add(teacher.getName() + " " + teacher.getSurname());
+        if (teachers != null) {
+            for (Teacher teacher : teachers) {
+                names.add(teacher.getName() + " " + teacher.getSurname());
+            }
         }
         return names;
     }
 
-    public List<String> getBooksNames(){
+    @Transactional
+    public List<String> getBooksNames() {
         List<String> names = new ArrayList<>();
-        for(Book book:books){
-            names.add(book.getName() + " by " + book.getAuthor());
+        if (books != null) {
+            for (Book book : books) {
+                names.add(book.getName() + " by " + book.getAuthor());
+            }
         }
         return names;
     }
 
 
-    public int getNumberOfUsers(){
+    public int getNumberOfUsers() {
         return users.size();
     }
 }

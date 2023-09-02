@@ -15,7 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.example.springboot_task.exceptions.ApiBadRequestException;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,8 +36,10 @@ public class UserService {
 
     public ResponseDto<UserDTO> getAllUsers(Integer offset, Integer limit) {
         Pageable pageable = new OffsetBasedPageRequest(offset, limit);
-        List<UserDTO> userDTOList = userRepository
-                .findAll(pageable)
+
+        var a = userRepository.findAll();
+
+        List<UserDTO> userDTOList = a
                 .stream()
                 .map(UserMapper::mapToUserDTO)
                 .toList();

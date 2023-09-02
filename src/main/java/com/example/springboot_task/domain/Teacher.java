@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -21,9 +21,10 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.AUTO,
             generator = "native_teacher"
     )
-    @GenericGenerator(
+    @SequenceGenerator(
             name = "native_teacher",
-            strategy = "native"
+            sequenceName = "native",
+            allocationSize = 1
     )
     private Long id;
     @Column(nullable = false)
