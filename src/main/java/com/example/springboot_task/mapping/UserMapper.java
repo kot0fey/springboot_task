@@ -4,9 +4,13 @@ import com.example.springboot_task.domain.School;
 import com.example.springboot_task.domain.User;
 import com.example.springboot_task.dto.request.UserUpdateDTO;
 import com.example.springboot_task.dto.response.UserDTO;
+import com.example.springboot_task.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+@Component
 public class UserMapper {
 
     public static UserDTO mapToUserDTO(User user) {
