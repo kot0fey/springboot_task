@@ -145,8 +145,6 @@ public class UserService {
 
     public ResponseDto<UserDTO> getUsersByFilter(String name, String surname, Long schoolId, Long cityId, int offset, int limit) {
 
-//            Page<User> fullList = userRepository.findByFilter(name, surname, schoolId, cityId);
-//            return new ResponseDto(fullList.stream().map(u -> UserMapper.mapToUserDTO(u)).toList(), limit, offset);
         Pageable pageable = new OffsetBasedPageRequest(offset, limit);
         List<UserDTO> userDTOList = userRepository
                 .findByFilter(name, surname, schoolId, cityId, pageable)

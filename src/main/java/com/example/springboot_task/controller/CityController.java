@@ -5,6 +5,7 @@ import com.example.springboot_task.dto.request.CityUpdateDTO;
 import com.example.springboot_task.dto.response.CityDTO;
 import com.example.springboot_task.dto.response.base.ResponseDto;
 import com.example.springboot_task.service.CityService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +21,7 @@ public class CityController {
     private final CityService cityService;
 
     @PostMapping
-    public CityDTO createCity(@RequestBody CityUpdateDTO city) {
+    public CityDTO createCity(@Valid @RequestBody CityUpdateDTO city) {
         return cityService.createCity(city);
     }
 

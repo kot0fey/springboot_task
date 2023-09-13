@@ -23,6 +23,7 @@ public class UserMapper {
                 .build();
     }
 
+
     public static User mapToUser(UserUpdateDTO userDTO, School school) {
         return User.builder()
                 .name(userDTO.getName())

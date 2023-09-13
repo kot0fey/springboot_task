@@ -73,6 +73,7 @@ public class SchoolService {
     }
 
     // @Query(Select ... Order by )
+    @Transactional
     public ResponseDto<SchoolDTO> rankByUsers(int offset, int limit) {
 
         Pageable pageable = new OffsetBasedPageRequest(offset, limit);

@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-//@EntityScan("com.example.springboot_task.model")
 @EnableJpaRepositories
 @SpringBootApplication
 public class SpringbootTaskApplication {

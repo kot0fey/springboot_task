@@ -18,4 +18,6 @@ public interface SchoolRepository extends JpaRepository<School, Long> {
             ORDER BY users_count DESC
             """, nativeQuery = true)
     List<School> findRankedByUsers(Pageable pageable);
+
+    School findSchoolByName(String name);
 }
